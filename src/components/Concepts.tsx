@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CONCEPTS, LASER_STRATEGIES } from '../data/photonics'
-import { Section, SectionTitle, Reveal } from './primitives'
+import { Section, SectionTitle, Reveal, Cite } from './primitives'
 
 const DEPTHS = [
   { key: 'eli5', label: 'ELI5', color: '#22c55e' },
@@ -48,6 +48,11 @@ function ConceptCard({ c }: { c: (typeof CONCEPTS)[number] }) {
           </motion.p>
         </AnimatePresence>
       </div>
+      {c.s && c.s.length > 0 && (
+        <div className="mt-3 border-t border-white/5 pt-2 font-mono text-[10px] text-slate-500">
+          source<Cite ids={c.s} />
+        </div>
+      )}
     </div>
   )
 }
@@ -86,7 +91,7 @@ export default function Concepts() {
               <div key={s.n} className="relative rounded-2xl border border-white/10 bg-black/30 p-5">
                 <div className="font-mono text-3xl font-black text-violet-400/40">0{s.n}</div>
                 <div className="mt-1 text-sm font-bold text-white">{s.name}</div>
-                <p className="mt-2 text-xs leading-relaxed text-slate-400">{s.desc}</p>
+                <p className="mt-2 text-xs leading-relaxed text-slate-400">{s.desc}<Cite ids={s.s} /></p>
               </div>
             ))}
           </div>

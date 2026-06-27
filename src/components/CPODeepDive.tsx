@@ -1,6 +1,6 @@
 import { CPO_PARTS } from '../data/photonics'
 import { CPODiagram, CPO_PART_ICON } from './Visuals'
-import { Section, SectionTitle, Reveal, Pill } from './primitives'
+import { Section, SectionTitle, Reveal, Pill, Cite } from './primitives'
 
 export default function CPODeepDive() {
   return (
@@ -13,6 +13,7 @@ export default function CPODeepDive() {
           <>
             The hottest commercial area — and the most relevant to AI infrastructure. Copper links between AI chips are
             hitting power and bandwidth walls. CPO moves the optical conversion engine right next to the processor.
+            <Cite ids={['meticulousCpo']} />
           </>
         }
       />
@@ -50,6 +51,7 @@ export default function CPODeepDive() {
             <p className="mt-3 text-sm leading-relaxed text-slate-300">
               The electrical path shrinks from board-length to millimetres. Nvidia claims{' '}
               <span className="font-bold text-emerald-300">3.5× power efficiency</span>, 63× signal integrity and 10× resiliency.
+              <Cite ids={['nvidiaNewsroom']} />
             </p>
           </div>
         </Reveal>
@@ -68,7 +70,7 @@ export default function CPODeepDive() {
             <p className="mt-3 text-sm leading-relaxed text-slate-300">
               CPO has been "two years away" for a decade. Deployment-ready products only arrived in{' '}
               <span className="font-bold text-violet-200">2025</span>; analysts model the pilot→volume ramp across 2026–2028.
-              Real and shipping — but the volume ramp is still ahead.
+              Real and shipping — but the volume ramp is still ahead.<Cite ids={['semianalysis', 'futureMktCpo']} />
             </p>
           </div>
         </Reveal>
@@ -81,7 +83,7 @@ export default function CPODeepDive() {
             <div className="font-mono text-xs uppercase tracking-widest text-cyan-300">+ a third vector · optics-to-memory</div>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-300">
               Photonics is also becoming the high-bandwidth link to disaggregated memory pools. Celestial AI's photonic
-              memory module reported energy far below electrical equivalents.
+              memory module reported energy far below electrical equivalents.<Cite ids={['allpcb']} />
             </p>
           </div>
           <div className="flex gap-3">

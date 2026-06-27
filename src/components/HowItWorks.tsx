@@ -1,6 +1,6 @@
 import { PIPELINE } from '../data/photonics'
 import { ChipPipeline, WaveguideCrossSection, COMPONENT_ICON } from './Visuals'
-import { Section, SectionTitle, Reveal, Pill } from './primitives'
+import { Section, SectionTitle, Reveal, Pill, Cite } from './primitives'
 
 export default function HowItWorks() {
   return (
@@ -44,7 +44,10 @@ export default function HowItWorks() {
                   {Icon && <Icon />}
                 </div>
                 <h3 className="text-lg font-bold text-white">{b.title}</h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-400">{b.detail}</p>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-400">
+                  {b.detail}
+                  <Cite ids={b.s} />
+                </p>
                 {b.spec && (
                   <div className="mt-3 rounded-lg bg-black/30 px-3 py-2 font-mono text-[11px]" style={{ color: b.color }}>
                     {b.spec}
@@ -68,13 +71,13 @@ export default function HowItWorks() {
           <p className="mt-4 leading-relaxed text-slate-300">
             Light stays inside a waveguide because of <span className="font-semibold text-cyan-300">refractive-index contrast</span> —
             silicon (n ≈ 3.5) bends light far more strongly than its silicon-dioxide cladding (n ≈ 1.45), confining the mode
-            tightly enough to bend around tiny radii.
+            tightly enough to bend around tiny radii.<Cite ids={['precedenceSip', 'lightmatter']} />
           </p>
           <p className="mt-4 leading-relaxed text-slate-300">
             But silicon has an <span className="font-semibold text-violet-300">indirect bandgap</span>, making it a terrible light
             emitter. So the laser must be built from <span className="font-semibold text-white">III-V semiconductors</span> (indium
             phosphide, gallium arsenide) and married to the chip — the one piece that <em>isn't</em> CMOS-native, and the field's
-            hardest engineering problem.
+            hardest engineering problem.<Cite ids={['idtechex', 'spieHybridLaser']} />
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <Pill color="#a78bfa">indirect bandgap → poor emitter</Pill>

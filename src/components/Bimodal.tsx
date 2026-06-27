@@ -1,5 +1,5 @@
 import { BIMODAL } from '../data/photonics'
-import { Section, SectionTitle, Reveal } from './primitives'
+import { Section, SectionTitle, Reveal, Cite } from './primitives'
 
 const TONE: Record<string, { c: string; ring: string }> = {
   good: { c: '#22c55e', ring: 'rgba(34,197,94,0.35)' },
@@ -37,7 +37,7 @@ export default function Bimodal() {
                 <h3 className="mt-2 text-base font-bold leading-snug text-white">{b.label}</h3>
                 <div className="mt-auto pt-4">
                   <div className="font-mono text-[10px] uppercase tracking-wider text-slate-500">Window</div>
-                  <div className="mt-1 text-sm font-semibold text-slate-200">{b.window}</div>
+                  <div className="mt-1 text-sm font-semibold text-slate-200">{b.window}<Cite ids={b.s} /></div>
                 </div>
               </div>
             </Reveal>
@@ -51,21 +51,21 @@ export default function Bimodal() {
             <div className="text-sm font-bold text-amber-300">Shipping today, narrow</div>
             <p className="mt-2 text-xs leading-relaxed text-slate-400">
               Q.ANT runs at <span className="font-bold text-white">30W</span> against Nvidia GPUs at 700–1,000W — but these are
-              analog accelerators for specific workloads, not general-purpose.
+              analog accelerators for specific workloads, not general-purpose.<Cite ids={['jonpeddie']} />
             </p>
           </div>
           <div className="glass rounded-2xl p-5">
             <div className="text-sm font-bold text-rose-300">GPU-class is genuinely distant</div>
             <p className="mt-2 text-xs leading-relaxed text-slate-400">
               Hard blockers remain unsolved: optical nonlinearity (activation functions), memory, and the fact that much
-              "photonic compute" revenue is actually interconnect.
+              "photonic compute" revenue is actually interconnect.<Cite ids={['spieOptical']} />
             </p>
           </div>
           <div className="glass rounded-2xl p-5">
             <div className="text-sm font-bold text-cyan-300">Same name, different product</div>
             <p className="mt-2 text-xs leading-relaxed text-slate-400">
               ~6 companies pursue photonic compute; 10+ pursue photonic interconnect. The two{' '}
-              <span className="font-bold text-white">share a name but not a product.</span>
+              <span className="font-bold text-white">share a name but not a product.</span><Cite ids={['jonpeddie']} />
             </p>
           </div>
         </div>

@@ -9,6 +9,7 @@ import Market from './components/Market'
 import Bimodal from './components/Bimodal'
 import Concepts from './components/Concepts'
 import Corrections from './components/Corrections'
+import Sources from './components/Sources'
 
 const NAV = [
   { id: 'how', label: 'Physics' },
@@ -20,6 +21,7 @@ const NAV = [
   { id: 'bimodal', label: 'Compute' },
   { id: 'concepts', label: 'Foundations' },
   { id: 'model', label: 'Model' },
+  { id: 'sources', label: 'Sources' },
 ]
 
 function TopNav() {
@@ -73,10 +75,13 @@ function Footer() {
             </p>
           </div>
           <div className="font-mono text-[11px] leading-relaxed text-slate-600">
-            <div className="mb-2 uppercase tracking-widest text-slate-500">Sources cited in-thread</div>
+            <a href="#sources" className="mb-2 block uppercase tracking-widest text-slate-500 transition hover:text-cyan-300">
+              Sources → every figure traced
+            </a>
             <div>PhotonDelta · Nvidia · IDTechEx · Yole Group</div>
             <div>Meticulous · Future Markets · Jon Peddie</div>
             <div>SPIE · Xanadu · HPCwire · Mordor · Precedence</div>
+            <div>Marvell · Lightmatter · SemiAnalysis · ALLPCB</div>
           </div>
         </div>
         <div className="mt-10 border-t border-white/5 pt-6 font-mono text-[11px] text-slate-600">
@@ -102,6 +107,7 @@ export default function App() {
         <Bimodal />
         <Concepts />
         <Corrections />
+        <Sources />
       </main>
       <Footer />
     </div>

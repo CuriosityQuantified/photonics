@@ -1,9 +1,16 @@
-// All figures sourced from the researched Claude conversation on Photonics.
-// Each datum traces back to the "Ground-truth data repository" in that thread.
+// All figures sourced from the researched conversation on photonics.
+// Each datum carries citation keys (`s`) that resolve to ./sources.ts and render
+// as clickable [n] links throughout the UI.
 
 export const SPECTRUM = ['#7c3aed', '#4f46e5', '#2563eb', '#06b6d4', '#14b8a6', '#22c55e', '#f59e0b', '#f97316', '#ef4444']
 
 export type Maturity = 'mature' | 'commercializing' | 'early' | 'pre-commercial' | 'research'
+
+// A sourced statement: text + the source keys backing it.
+export interface Fact {
+  t: string
+  s: string[]
+}
 
 export interface Rung {
   id: string
@@ -15,7 +22,7 @@ export interface Rung {
   status: string
   window: string
   blurb: string
-  facts: string[]
+  facts: Fact[]
   players?: string[]
 }
 
@@ -33,10 +40,10 @@ export const RUNGS: Rung[] = [
     blurb:
       'The boring, enormous, real part of photonics. Long-haul fiber and data-center transceivers convert electrical signals to optical and back. A steady speed climb: 10G → … → 3.2T.',
     facts: [
-      '1.6T pluggable transceivers launched in 2025',
-      '3.2 Tbps transceivers expected by 2026',
-      '800G shipments projected at 33.5M units in 2026 — the largest procurement in optical-interconnect history',
-      'Each Nvidia H200 server needs several 800G modules',
+      { t: '1.6T pluggable transceivers launched in 2025', s: ['fortuneTransceiver'] },
+      { t: '3.2 Tbps transceivers expected by 2026', s: ['idtechex'] },
+      { t: 'Goldman Sachs raised its 2026 forecast for 800G modules +58% to 33.5M units', s: ['goldman800g'] },
+      { t: 'A steady speed climb 10G → 3.2T, with AI-fabric build-out the demand driver', s: ['futureMktTransceiver'] },
     ],
   },
   {
@@ -51,9 +58,9 @@ export const RUNGS: Rung[] = [
     blurb:
       'Not an application — a fabrication approach. A Photonic Integrated Circuit (PIC) puts lasers, modulators, waveguides and detectors on a single die, the way an electronic IC integrates transistors.',
     facts: [
-      'Silicon-on-insulator (SOI) is the dominant platform (~55% share) thanks to CMOS compatibility',
-      'Leverages standard CMOS fabrication for cost-effective mass production',
-      'Emerging materials: thin-film lithium niobate (TFLN) and barium titanate for better modulators',
+      { t: 'Silicon-on-insulator (SOI) is the dominant platform (~55% share) thanks to CMOS compatibility', s: ['precedenceSip'] },
+      { t: 'Leverages standard CMOS fabrication for cost-effective mass production', s: ['precedenceSip'] },
+      { t: 'Emerging materials: thin-film lithium niobate (TFLN) and barium titanate for better modulators', s: ['laserFocusBto'] },
     ],
   },
   {
@@ -68,11 +75,11 @@ export const RUNGS: Rung[] = [
     blurb:
       'The hot frontier. Copper links between AI chips are hitting bandwidth and power walls. CPO integrates the optics directly onto the switch/processor package, eliminating the electrical signaling bottleneck.',
     facts: [
-      'Nvidia Spectrum-X & Quantum-X silicon-photonics switches unveiled at GTC, March 2025',
-      'Claims: 3.5× power efficiency · 63× signal integrity · 10× network resiliency',
-      'Quantum-X InfiniBand: late 2025 · Spectrum-X Ethernet: H2 2026 at up to 409.6 Tb/s',
-      'Marvell acquired Celestial AI for $3.25B (late 2025)',
-      'Has been "two years away" for a decade — now genuinely shipping',
+      { t: 'Nvidia Spectrum-X & Quantum-X silicon-photonics switches unveiled at GTC, March 2025', s: ['nvidiaNewsroom'] },
+      { t: 'Claims: 3.5× power efficiency · 63× signal integrity · 10× network resiliency', s: ['nvidiaNewsroom'] },
+      { t: 'Quantum-X InfiniBand: late 2025 · Spectrum-X Ethernet: H2 2026 at up to 409.6 Tb/s', s: ['yole', 'nvidiaSpectrumBlog'] },
+      { t: 'Marvell acquired Celestial AI for $3.25B (late 2025)', s: ['marvellCelestial'] },
+      { t: 'Has been "two years away" for a decade — now genuinely shipping', s: ['semianalysis'] },
     ],
     players: ['Nvidia', 'Lightmatter', 'Ayar Labs', 'Broadcom', 'Intel'],
   },
@@ -88,10 +95,10 @@ export const RUNGS: Rung[] = [
     blurb:
       'The same silicon-photonics platform moving into sensing. A single PIC integrates the laser, modulators, beam steering and detector on-chip — removing mechanical moving parts.',
     facts: [
-      'FMCW = Frequency-Modulated Continuous-Wave',
-      '15–20 companies building silicon-photonics FMCW LiDAR',
-      'Automotive/autonomous LiDAR forecast at ~32–35% CAGR',
-      'Other uses: biosensing, gas sensing, inertial navigation',
+      { t: 'FMCW = Frequency-Modulated Continuous-Wave — laser, modulators, beam steering and detector on one PIC', s: ['junkoLidar'] },
+      { t: '15–20 companies building silicon-photonics FMCW LiDAR', s: ['junkoLidar'] },
+      { t: 'Automotive/autonomous LiDAR forecast at ~32–35% CAGR', s: ['mordorAutoLidar'] },
+      { t: 'Other uses: biosensing, gas sensing, inertial navigation', s: ['junkoLidar'] },
     ],
     players: ['Aeva', 'SiLC', 'Voyant', 'Aurora', 'Analog Photonics'],
   },
@@ -107,11 +114,11 @@ export const RUNGS: Rung[] = [
     blurb:
       'Light performs the computation itself. Photonics is naturally good at matrix multiplication — the linear algebra at the heart of neural networks — at the physical level, in picoseconds.',
     facts: [
-      "Q.ANT (Germany) ships all-photonic AI coprocessors at 30W vs Nvidia GPUs' 700–1,000W",
-      'Installed at two European supercomputing centers',
-      'Lightmatter launched Passage L200 & M1000 at a $4.4B valuation',
-      'Caveat: "compute" and "interconnect" share a name but not a product',
-      'Still needs electronics for memory, buffering & nonlinearity (activation functions)',
+      { t: "Q.ANT (Germany) ships photonic AI coprocessors at 30W vs Nvidia GPUs' 700–1,000W", s: ['jonpeddie'] },
+      { t: 'Installed at two European supercomputing centers', s: ['jonpeddie'] },
+      { t: 'Lightmatter launched Passage L200 & M1000 at a $4.4B valuation', s: ['spieOptical', 'jonpeddie'] },
+      { t: '"Compute" and "interconnect" share a name but not a product (~6 vs 10+ companies)', s: ['jonpeddie'] },
+      { t: 'Still needs electronics for memory, buffering & nonlinearity (activation functions)', s: ['spieOptical'] },
     ],
     players: ['Q.ANT', 'Lightmatter'],
   },
@@ -127,10 +134,10 @@ export const RUNGS: Rung[] = [
     blurb:
       'Using single photons (or squeezed light) as qubits. Advantages over superconducting qubits: room-temperature operation, manufacturability, modularity and telecom compatibility.',
     facts: [
-      'Xanadu "Aurora" (Jan 2025): 12 qubits, 35 photonic chips, 13 km of fiber, room temperature',
-      'Xanadu target: a fault-tolerant quantum computing data center by 2029',
-      'PsiQuantum aims for ~1M physical qubits; fault-corrected machine ~2027–2029',
-      'Treat all of these as company-stated targets that have historically slipped',
+      { t: 'Xanadu "Aurora" (Jan 2025): 12 qubits, 35 photonic chips, 13 km of fiber, room temperature', s: ['xanadu'] },
+      { t: 'Xanadu target: a fault-tolerant quantum computing data center by 2029', s: ['hpcwire'] },
+      { t: 'PsiQuantum aims for ~1M physical qubits; fault-corrected machine ~2027–2029', s: ['postquantum'] },
+      { t: 'Treat all of these as company-stated targets that have historically slipped', s: [] },
     ],
     players: ['Xanadu', 'PsiQuantum'],
   },
@@ -145,6 +152,7 @@ export interface Block {
   detail: string
   color: string
   spec?: string
+  s?: string[]
 }
 
 export const PIPELINE: Block[] = [
@@ -157,6 +165,7 @@ export const PIPELINE: Block[] = [
       "Silicon has an indirect bandgap, so it is a poor light emitter. The laser must be built from III-V semiconductors (e.g. indium phosphide) and married to the silicon — the field's central engineering problem.",
     color: '#7c3aed',
     spec: 'III-V: InP / GaAs',
+    s: ['idtechex', 'spieHybridLaser'],
   },
   {
     id: 'encode',
@@ -167,6 +176,7 @@ export const PIPELINE: Block[] = [
       "A modulator imprints data onto the light by altering its intensity, phase or polarisation — high intensity a '1', low a '0'. Chip-scale types: Mach-Zehnder and micro-ring modulators.",
     color: '#2563eb',
     spec: 'Nvidia micro-ring: 200 Gbps PAM4 / wavelength',
+    s: ['photondelta', 'nvidiaCpoCollab'],
   },
   {
     id: 'route',
@@ -177,6 +187,7 @@ export const PIPELINE: Block[] = [
       'Waveguides are microscopic on-chip channels that guide light with minimal loss. Wavelength-Division Multiplexing (WDM) sends many independent data streams — many "colors" — down one waveguide at once.',
     color: '#06b6d4',
     spec: 'Si index ≈ 3.5 vs SiO₂ cladding ≈ 1.45',
+    s: ['lightmatter'],
   },
   {
     id: 'detect',
@@ -187,6 +198,7 @@ export const PIPELINE: Block[] = [
       'A photodetector converts the modulated light back into an electrical signal that electronic circuits understand. Often uses germanium added to silicon — well integrated into CMOS lines.',
     color: '#22c55e',
     spec: 'Ge-on-Si, CMOS-integrated',
+    s: ['photondelta'],
   },
 ]
 
@@ -249,6 +261,9 @@ export const TIMELINE: Track[] = [
 export const TIMELINE_START = 2025
 export const TIMELINE_END = 2034
 
+// Sources backing the consolidated timeline windows
+export const TIMELINE_SOURCES = ['idtechex', 'futureMktCpo', 'mordorAutoLidar', 'futureMktOptComp', 'hpcwire']
+
 // Silicon-photonics market — the forecast spread IS the signal
 export const MARKET = [
   { year: '2025', low: 2.8, high: 4 },
@@ -259,12 +274,27 @@ export const MARKET = [
   { year: '2034', low: 18, high: 29 },
 ]
 
+// Headline market stats — each with the firms that corroborate the band
+export const MARKET_STATS = [
+  { k: '$2.8–4B', v: 'Market size in 2025–2026', c: '#22d3ee', s: ['precedenceSip', 'mordorSip', 'fortuneSip'] },
+  { k: '$10–29B', v: 'Range of 2030–2034 forecasts', c: '#a78bfa', s: ['mordorSip', 'precedenceSip', 'fortuneSip'] },
+  { k: '23–29%', v: 'CAGR cited across analyst firms', c: '#22c55e', s: ['fortuneSip', 'mordorSip', 'precedenceSip'] },
+]
+
 // Photonic compute is bimodal — don't file it as one 2030s bucket
-export const BIMODAL = [
-  { label: 'Photonic networking', status: 'Viable now', window: 'Scales hard through 2028', tone: 'good' },
-  { label: 'Photonic compute (niche)', status: 'Shipping now', window: 'Narrow, growing 2026–2031', tone: 'ok' },
-  { label: 'Photonic compute (mainstream / GPU-class)', status: 'Pre-commercial', window: '2027–2031 if it works; uncertain', tone: 'warn' },
-  { label: 'Quantum photonics', status: 'Lab milestones', window: '~2029–early 2030s', tone: 'far' },
+export interface BimodalRow {
+  label: string
+  status: string
+  window: string
+  tone: string
+  s: string[]
+}
+
+export const BIMODAL: BimodalRow[] = [
+  { label: 'Photonic networking', status: 'Viable now', window: 'Scales hard through 2028', tone: 'good', s: ['futureMktCpo'] },
+  { label: 'Photonic compute (niche)', status: 'Shipping now', window: 'Narrow, growing 2026–2031', tone: 'ok', s: ['jonpeddie'] },
+  { label: 'Photonic compute (mainstream / GPU-class)', status: 'Pre-commercial', window: '2027–2031 if it works; uncertain', tone: 'warn', s: ['futureMktOptComp', 'spieOptical'] },
+  { label: 'Quantum photonics', status: 'Lab milestones', window: '~2029–early 2030s', tone: 'far', s: ['hpcwire'] },
 ]
 
 // Reach spectrum — where copper hands off to optics
@@ -276,6 +306,8 @@ export const REACH = [
   { name: 'Chip-to-chip', sub: 'on the die', medium: 'future', note: 'Eventually optical I/O' },
 ]
 
+export const REACH_SOURCES = ['insidehpc', 'tomshardware']
+
 // CPO component glossary
 export const CPO_PARTS = [
   { name: 'ASIC', full: 'Application-Specific Integrated Circuit', eli5: 'A chip that is a specialist, not a generalist — the traffic cop for data.', detail: 'In a switch, the switch ASIC decides where each piece of data goes.' },
@@ -285,15 +317,31 @@ export const CPO_PARTS = [
 ]
 
 // Laser integration strategies — increasing intimacy
-export const LASER_STRATEGIES = [
-  { n: 1, name: 'Hybrid integration', desc: 'Prefabricated laser dies flip-chip bonded / butt-coupled onto silicon. Reliable, but slow and costly — each laser processed separately.' },
-  { n: 2, name: 'Heterogeneous integration', desc: 'Bond an unpatterned III-V wafer onto silicon, then build the laser in place; light couples down into the silicon waveguide. Intel productized this.' },
-  { n: 3, name: 'Monolithic integration', desc: 'Grow III-V (e.g. quantum-dot) lasers directly in silicon trenches. Most elegant; hardest, due to crystal-lattice & thermal mismatch.' },
-  { n: 4, name: 'Micro-transfer printing', desc: 'Transfer many prefabricated III-V components onto silicon wafers in parallel — a newer middle path for throughput.' },
+export interface LaserStrategy {
+  n: number
+  name: string
+  desc: string
+  s?: string[]
+}
+
+export const LASER_STRATEGIES: LaserStrategy[] = [
+  { n: 1, name: 'Hybrid integration', desc: 'Prefabricated laser dies flip-chip bonded / butt-coupled onto silicon. Reliable, but slow and costly — each laser processed separately.', s: ['pmcRoadmap'] },
+  { n: 2, name: 'Heterogeneous integration', desc: 'Bond an unpatterned III-V wafer onto silicon, then build the laser in place; light couples down into the silicon waveguide. Intel productized this.', s: ['patentHetero'] },
+  { n: 3, name: 'Monolithic integration', desc: 'Grow III-V (e.g. quantum-dot) lasers directly in silicon trenches. Most elegant; hardest, due to crystal-lattice & thermal mismatch.', s: ['aipQdLaser'] },
+  { n: 4, name: 'Micro-transfer printing', desc: 'Transfer many prefabricated III-V components onto silicon wafers in parallel — a newer middle path for throughput.', s: ['compoundSemi'] },
 ]
 
 // Three-depth concept explainers
-export const CONCEPTS = [
+export interface Concept {
+  id: string
+  q: string
+  eli5: string
+  inter: string
+  adv: string
+  s?: string[]
+}
+
+export const CONCEPTS: Concept[] = [
   {
     id: 'optics-photonics',
     q: 'Optics vs. Photonics',
@@ -307,6 +355,7 @@ export const CONCEPTS = [
     eli5: 'Tiny see-through pipes. City-to-city it is a hair-thin strand of pure glass (fiber). On a chip it is an even tinier channel carved into the chip itself.',
     inter: 'Two media by distance. Across the world: optical fiber (ultra-pure silica). On a chip: a waveguide — a strip of silicon wrapped in silicon dioxide. Light stays inside because the core bends light more strongly than the cladding.',
     adv: 'Confinement by refractive-index contrast: silicon ≈ 3.5, SiO₂ cladding ≈ 1.45. That large contrast confines the mode tightly and allows tiny bend radii. Dominant platform: silicon-on-insulator (SOI). Silicon nitride is used where lower loss is needed.',
+    s: ['precedenceSip', 'lightmatter'],
   },
   {
     id: 'cmos',
@@ -314,5 +363,6 @@ export const CONCEPTS = [
     eli5: 'Complementary Metal-Oxide-Semiconductor — the standard recipe and standard factory the whole world uses to make computer chips. "CMOS-compatible" means light chips can be made in the same factories.',
     inter: 'The dominant transistor technology behind nearly every processor and memory chip. "Complementary" = pairing two transistor types that switch in opposite ways, keeping power low. Its importance to photonics is economic, not optical.',
     adv: 'Complementary pairs of n-type and p-type MOSFETs so current flows mainly during switching, minimizing static power. For photonics the win is process & supply-chain leverage — waveguides, modulators and detectors patterned on SOI in existing foundries, often on mature nodes.',
+    s: ['precedenceSip'],
   },
 ]

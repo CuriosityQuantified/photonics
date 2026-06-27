@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { ElectronVsPhoton } from './Visuals'
-import { Pill } from './primitives'
+import { Pill, Cite } from './primitives'
 
 function PhotonField() {
   // animated background streams of light
@@ -76,7 +76,7 @@ export default function Hero() {
           className="mt-12 glass-strong rounded-3xl p-6 sm:p-8"
         >
           <div className="mb-4 font-mono text-xs uppercase tracking-[0.25em] text-slate-400">
-            The core advantage is physical
+            The core advantage is physical<Cite ids={['photondelta']} />
           </div>
           <ElectronVsPhoton />
         </motion.div>

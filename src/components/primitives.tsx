@@ -1,5 +1,31 @@
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
+import { SOURCES, sourceNum } from '../data/sources'
+
+// Clickable citation marker(s). Renders superscript [n] links to the source URLs.
+export function Cite({ ids }: { ids?: string[] }) {
+  if (!ids || ids.length === 0) return null
+  return (
+    <sup className="ml-0.5 inline-flex gap-px whitespace-nowrap align-super">
+      {ids.map((id) => {
+        const s = SOURCES[id]
+        if (!s) return null
+        return (
+          <a
+            key={id}
+            href={s.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={`${s.pub} — ${s.title}`}
+            className="font-mono text-[9px] font-semibold leading-none text-cyan-400/75 transition hover:text-cyan-200"
+          >
+            [{sourceNum(id)}]
+          </a>
+        )
+      })}
+    </sup>
+  )
+}
 
 export function Section({
   id,

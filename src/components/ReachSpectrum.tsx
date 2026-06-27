@@ -1,5 +1,5 @@
-import { REACH } from '../data/photonics'
-import { Section, SectionTitle, Reveal } from './primitives'
+import { REACH, REACH_SOURCES } from '../data/photonics'
+import { Section, SectionTitle, Reveal, Cite } from './primitives'
 
 const TONE: Record<string, { c: string; label: string }> = {
   optics: { c: '#22c55e', label: 'optics today' },
@@ -51,7 +51,7 @@ export default function ReachSpectrum() {
           <span className="font-mono text-xs text-amber-400">⚠ copper isn't dead</span>
           <span className="text-sm text-slate-400">
             For the shortest, cheapest hops copper still wins. Optics displaces it only where reach or bandwidth demands —
-            a moving handoff line, not a clean replacement.
+            a moving handoff line, not a clean replacement.<Cite ids={REACH_SOURCES} />
           </span>
         </div>
       </Reveal>

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
-import { TIMELINE, TIMELINE_START, TIMELINE_END } from '../data/photonics'
-import { Section, SectionTitle, Reveal } from './primitives'
+import { TIMELINE, TIMELINE_START, TIMELINE_END, TIMELINE_SOURCES } from '../data/photonics'
+import { Section, SectionTitle, Reveal, Cite } from './primitives'
 
 const SPAN = TIMELINE_END - TIMELINE_START
 const pct = (y: number) => ((y - TIMELINE_START) / SPAN) * 100
@@ -84,6 +84,7 @@ export default function Timeline() {
         <div className="mt-7 flex flex-wrap gap-5 border-t border-white/10 pt-4 font-mono text-[11px] text-slate-500">
           <span className="flex items-center gap-2"><span className="h-2.5 w-6 rounded bg-slate-400" /> committed / shipping</span>
           <span className="flex items-center gap-2"><span className="h-2.5 w-6 rounded border border-dashed border-slate-500" /> optimistic / uncertain</span>
+          <span className="flex items-center gap-1 text-slate-500">window sources<Cite ids={TIMELINE_SOURCES} /></span>
         </div>
       </Reveal>
     </Section>

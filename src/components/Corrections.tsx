@@ -1,21 +1,25 @@
-import { Section, SectionTitle, Reveal, Pill } from './primitives'
+import { Section, SectionTitle, Reveal, Pill, Cite } from './primitives'
 
 const CORRECTIONS = [
   {
     wrong: 'Fiber is only for long distances; pluggables are a separate in-system thing.',
     right: 'Fiber already runs inside the system — pluggables convert electricity to light that travels over fiber to a switch meters away. Same world, different reach.',
+    s: ['lightmatter'],
   },
   {
     wrong: 'A pluggable is just the light source plugged into the board.',
     right: 'A pluggable is a complete electrical↔optical transceiver: laser + modulator + photodetector + electronics. The laser is one component inside it.',
+    s: ['lightmatter'],
   },
   {
     wrong: 'In CPO, the laser moves next to the processor.',
     right: 'The optical engine (modulators + detectors) moves beside the ASIC. The heat-sensitive laser usually stays external — "laser disaggregation."',
+    s: ['insidehpc', 'nvidiaCpoCollab'],
   },
   {
     wrong: "Pluggables are inefficient because they're hot from being far away.",
     right: 'The penalty is the long copper path driving high-speed SerDes signals — a hard ceiling: shoreline limits leave conventional interconnects short of 2027–28 needs (>50 Tbps).',
+    s: ['insidehpc'],
   },
 ]
 
@@ -40,7 +44,7 @@ export default function Corrections() {
               <div className="my-3 ml-1 h-4 w-px bg-white/15" />
               <div className="flex items-start gap-3">
                 <Pill color="#22c55e">precise</Pill>
-                <p className="text-sm leading-relaxed text-slate-200">{c.right}</p>
+                <p className="text-sm leading-relaxed text-slate-200">{c.right}<Cite ids={c.s} /></p>
               </div>
             </div>
           </Reveal>

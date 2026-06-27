@@ -1,6 +1,6 @@
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-import { MARKET } from '../data/photonics'
-import { Section, SectionTitle, Reveal } from './primitives'
+import { MARKET, MARKET_STATS } from '../data/photonics'
+import { Section, SectionTitle, Reveal, Cite } from './primitives'
 
 export default function Market() {
   return (
@@ -51,15 +51,11 @@ export default function Market() {
         </Reveal>
 
         <div className="grid gap-4">
-          {[
-            { k: '$2.8–4B', v: 'Market size in 2025–2026', c: '#22d3ee' },
-            { k: '$10–29B', v: 'Range of 2030–2034 forecasts', c: '#a78bfa' },
-            { k: '23–29%', v: 'CAGR cited across analyst firms', c: '#22c55e' },
-          ].map((s, i) => (
+          {MARKET_STATS.map((s, i) => (
             <Reveal key={s.k} delay={0.08 * i}>
               <div className="glass flex h-full flex-col justify-center rounded-2xl p-6">
                 <div className="text-4xl font-black tabular" style={{ color: s.c }}>{s.k}</div>
-                <div className="mt-1 text-sm text-slate-400">{s.v}</div>
+                <div className="mt-1 text-sm text-slate-400">{s.v}<Cite ids={s.s} /></div>
               </div>
             </Reveal>
           ))}

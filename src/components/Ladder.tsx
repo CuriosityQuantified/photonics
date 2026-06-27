@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { RUNGS } from '../data/photonics'
-import { Section, SectionTitle, Reveal, Pill } from './primitives'
+import { Section, SectionTitle, Reveal, Pill, Cite } from './primitives'
 
 const MATURITY_LABEL: Record<string, string> = {
   mature: 'Mature',
@@ -92,7 +92,7 @@ export default function Ladder() {
                       {r.facts.map((f, k) => (
                         <li key={k} className="flex gap-2 text-[13px] leading-relaxed text-slate-400">
                           <span style={{ color: r.color }}>▸</span>
-                          <span>{f}</span>
+                          <span>{f.t}<Cite ids={f.s} /></span>
                         </li>
                       ))}
                     </ul>
